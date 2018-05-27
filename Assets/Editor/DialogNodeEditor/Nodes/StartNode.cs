@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System;
-using DNECore;
+using NodeSystem;
 
-namespace DNECore {
+namespace NodeSystem {
     public class StartNode : Node {
         public ConnectionPoint startPoint;
 

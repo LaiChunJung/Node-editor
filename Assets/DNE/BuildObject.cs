@@ -16,7 +16,13 @@ namespace DNE {
             this.current_index = current_index;
         }
 
-        public BuildObject Get() {
+		public void Init()
+		{
+			this.start_index = start_index;
+			this.current_index = current_index;
+		}
+
+		public BuildObject Get() {
             return (BuildObject)MemberwiseClone();
         }
 
@@ -42,12 +48,14 @@ namespace DNE {
     public class BuildNode {
         [SerializeField] private string title;
         [SerializeField] private string text;
-        [SerializeField] private AudioClip clip;
+		[SerializeField]	private string mAnimatorState;
+		[SerializeField] private AudioClip clip;
         [SerializeField] private List<string> triggers;
         public List<int> next_index; //TODO figure out what your own code does so we can make this private k?
 
         public string Title { get { return title; } }
-        public string Text { get { return text; } }
+		public string AnimatorState { get { return mAnimatorState; } }
+		public string Text { get { return text; } }
         public AudioClip Clip { get { return clip; } }
         public List<string> Triggers { get { return triggers; } }
 
@@ -58,9 +66,10 @@ namespace DNE {
             return next_index[triggers.IndexOf(trigger)];
         }
 
-        public BuildNode(string title, string text, AudioClip clip, List<string> triggers) {
+        public BuildNode(string title, string text, AudioClip clip, string iAnimatorState, List<string> triggers) {
             this.title = title;
             this.text = text;
+			this.mAnimatorState = iAnimatorState;
             this.clip = clip;
             this.triggers = triggers;
             next_index = new List<int>();

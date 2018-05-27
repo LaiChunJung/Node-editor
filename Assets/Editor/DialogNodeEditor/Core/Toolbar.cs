@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using DNECore;
+using NodeSystem;
 
 /*
  * TODO
@@ -10,7 +10,7 @@ using DNECore;
  *  - check savepath logic
  */
 
-namespace DNECore {
+namespace NodeSystem {
     public class Toolbar {
         private DialogNodeEditor editor;
         private Rect rect;
