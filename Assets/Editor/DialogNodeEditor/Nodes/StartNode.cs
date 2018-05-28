@@ -6,7 +6,7 @@ using System;
 using NodeSystem;
 
 namespace NodeSystem {
-    public class StartNode : Node {
+    public class StartNode : NodeBase {
         public ConnectionPoint startPoint;
 
         public StartNode(DialogNodeEditor editor, Vector2 position) : base(editor, position) {

@@ -6,7 +6,7 @@ using NodeSystem;
 
 namespace NodeSystem
 {
-	public class DialogNode : Node
+	public class DialogNode : NodeBase
 	{
 		public ConnectionPoint inPoint; //not really used, for editor structure
 		public List<ConnectionPoint> outPoints = new List<ConnectionPoint>();

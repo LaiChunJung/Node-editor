@@ -20,7 +20,7 @@ using DNE;
 public class DialogNodeEditor : EditorWindow
 {
 
-	private List<Node> nodes;
+	private List<NodeBase> nodes;
 	private List<Connection> connections;
 
 	private ConnectionPoint selectedInPoint;
@@ -224,7 +224,7 @@ public class DialogNodeEditor : EditorWindow
 		//TODO better way than try catch block AND change to return bool?
 		try
 		{
-			if (nodes == null) nodes = new List<Node>();
+			if (nodes == null) nodes = new List<NodeBase>();
 			if (connections == null) connections = new List<Connection>();
 			EditorSaveObject save = BuildSaveObject();
 			AssetDatabase.CreateAsset(save, path);
@@ -253,12 +253,12 @@ public class DialogNodeEditor : EditorWindow
 
 			//build nodes
 			int spent = 0; //tracks index of used CP
-			nodes = new List<Node>();
+			nodes = new List<NodeBase>();
 			for (int i = 0; i < load.nodeinfos.Count; i++)
 			{
 				Type t = Type.GetType(load.nodeinfos[i].type);
 				ConstructorInfo ctor = t.GetConstructor(new[] { GetType(), typeof(NodeInfo) });
-				Node n = (Node)Convert.ChangeType(ctor.Invoke(new object[] { this, load.nodeinfos[i] }), t);
+				NodeBase n = (NodeBase)Convert.ChangeType(ctor.Invoke(new object[] { this, load.nodeinfos[i] }), t);
 				n.Rebuild(CPIndex.GetRange(spent, load.NodeCPIndex[i]));
 				spent += load.NodeCPIndex[i];
 				AddNode(n);
@@ -318,12 +318,12 @@ public class DialogNodeEditor : EditorWindow
 	public void BuildCanvas(string path)
 	{
 		//creates friendly version for loading at runtime
-		if (nodes == null) nodes = new List<Node>();
+		if (nodes == null) nodes = new List<NodeBase>();
 		if (connections == null) connections = new List<Connection>();
 		List<BuildNode> buildNodes = new List<BuildNode>();
 
 		//build node array
-		List<Node> node_index_reference = new List<Node>();
+		List<NodeBase> node_index_reference = new List<NodeBase>();
 		for (int i = 0; i < nodes.Count; i++)
 		{
 			if (nodes[i].GetType() == typeof(DialogNode))
@@ -349,7 +349,7 @@ public class DialogNodeEditor : EditorWindow
 		}
 
 		//get starting DialogNode
-		Node start_n = null;
+		NodeBase start_n = null;
 		for (int i = 0; i < nodes.Count; i++)
 		{
 			if (nodes[i].GetType() == typeof(StartNode))
@@ -385,17 +385,17 @@ public class DialogNodeEditor : EditorWindow
 	#endregion
 
 	//creat node
-	private void AddNode(Node node)
+	private void AddNode(NodeBase node)
 	{
 		if (nodes == null)
 		{
-			nodes = new List<Node>();
+			nodes = new List<NodeBase>();
 		}
 
 		//look for start node, reject if start node exists
 		if (node.GetType() == typeof(StartNode))
 		{
-			foreach (Node aNode in nodes)
+			foreach (NodeBase aNode in nodes)
 			{
 				if (aNode.GetType() == typeof(StartNode))
 				{
@@ -505,7 +505,7 @@ public class DialogNodeEditor : EditorWindow
 		GUI.changed = true;
 	}
 
-	public void OnClickRemoveNode(Node node)
+	public void OnClickRemoveNode(NodeBase node)
 	{
 		if (connections != null)
 		{
@@ -532,7 +532,7 @@ public class DialogNodeEditor : EditorWindow
 
 	public void MoveToStart()
 	{
-		foreach (Node n in nodes)
+		foreach (NodeBase n in nodes)
 		{
 			if (n.GetType() == typeof(StartNode))
 			{
