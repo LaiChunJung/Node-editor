@@ -45,7 +45,7 @@ namespace NodeSystem
 
 		public override void SetStyle() {
 			Style.normal.background = AssetDatabase.LoadAssetAtPath("Assets/Editor/DialogNodeEditor/Textures/grayTex.png", typeof(Texture2D)) as Texture2D;
-			Style.onFocused.background = AssetDatabase.LoadAssetAtPath("Assets/Editor/DialogNodeEditor/Textures/grayDarkTex.png", typeof(Texture2D)) as Texture2D;
+			Style.active.background = AssetDatabase.LoadAssetAtPath("Assets/Editor/DialogNodeEditor/Textures/grayDarkTex.png", typeof(Texture2D)) as Texture2D;
 			Style.normal.textColor = Color.white;
 			Style.fontSize = 32;
 			Style.alignment = TextAnchor.MiddleCenter;

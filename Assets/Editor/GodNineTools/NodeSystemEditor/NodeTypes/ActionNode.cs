@@ -13,7 +13,7 @@ namespace NodeSystem
 {
 	public class ActionNode : NodeBase
 	{
-		public List<NodeConnectionPoint> InPoints = new List<NodeConnectionPoint>();
+		public NodeConnectionPoint InPoint;
 		public List<NodeConnectionPoint> OutPoints = new List<NodeConnectionPoint>();
 		public List<string> Triggers = new List<string>();
 
@@ -39,7 +39,7 @@ namespace NodeSystem
 			Width = 300;
 			Height = 200;
 			NodeRect = new Rect(position.x, position.y, Width, Height);
-			InPoints.Add(new NodeConnectionPoint(this, NodeConnectionPointType.In, Editor.OnClickInPoint));
+			InPoint = new NodeConnectionPoint(this, NodeConnectionPointType.In, Editor.OnClickInPoint);
 			OutPoints.Add(new NodeConnectionPoint(this, NodeConnectionPointType.Out, Editor.OnClickOutPoint));
 			Triggers.Add("default");
 		}
@@ -54,10 +54,7 @@ namespace NodeSystem
 			//calc height needed
 			NodeRect.height = mOffset + ((3 + Triggers.Count) * (EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing)) + 10 + mButton_height + (EditorGUIUtility.singleLineHeight * 5);
 
-			for (int i = Triggers.Count - 1; i >= 0; i--)
-			{
-				InPoints[i].Draw(NodeRect.y + mOffset + ((2 + i) * (EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing)) - (InPoints[i].ConnectionPointRect.height * 0.5f) + (EditorGUIUtility.singleLineHeight * 0.5f) + mButton_height);
-			}
+			InPoint.Draw();
 
 			for (int i = Triggers.Count - 1; i >= 0; i--)
 			{
@@ -87,7 +84,7 @@ namespace NodeSystem
 
 		public override bool ProcessEvents(Event iEvent) {
 			ProcessDefault(iEvent);
-			InPoints[0].ProcessEvents(iEvent);
+			InPoint.ProcessEvents(iEvent);
 			for (int i = 0; i < OutPoints.Count; i++)
 			{
 				OutPoints[i].ProcessEvents(iEvent);
@@ -118,7 +115,7 @@ namespace NodeSystem
 
 		public override List<NodeConnectionPoint> GetConnectionPoints()
 		{
-			List<NodeConnectionPoint> result = new List<NodeConnectionPoint> { InPoints[0] };
+			List<NodeConnectionPoint> result = new List<NodeConnectionPoint> { InPoint };
 			result.AddRange(OutPoints);
 			return result;
 		}
@@ -129,14 +126,14 @@ namespace NodeSystem
 		}
 
 		public override NodeData GetInfo() {
-			return new NodeData(GetType().FullName, NodeRect);
+			return new NodeData(GetType().FullName, NodeRect, Name, Triggers);
 		}
 
 		public override void Rebuild(List<NodeConnectionPoint> iConnectionPoint) {
-			InPoints = iConnectionPoint;
+			InPoint = iConnectionPoint[0];
 			OutPoints = iConnectionPoint.GetRange(1, iConnectionPoint.Count - 1);
 
-			InPoints[0].Rebuild(this, NodeConnectionPointType.In, Editor.OnClickInPoint);
+			InPoint.Rebuild(this, NodeConnectionPointType.In, Editor.OnClickInPoint);
 			for (int i = 0; i < OutPoints.Count; i++)
 			{
 				OutPoints[i].Rebuild(this, NodeConnectionPointType.Out, Editor.OnClickOutPoint);

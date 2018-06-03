@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85d83e91bb28c6f48a07d1cd5cbe0a9e, type: 3}
+  m_Name: Canvas
+  m_EditorClassIdentifier: 
+  NodeDatas:
+  - Type: NodeSystem.InitNode
+    NodeRect:
+      serializedVersion: 2
+      x: 166
+      y: 124
+      width: 200
+      height: 100
+    NodeName: 
+    Triggers: []
+  - Type: NodeSystem.ActionNode
+    NodeRect:
+      serializedVersion: 2
+      x: 416
+      y: 310
+      width: 300
+      height: 221.6875
+    NodeName: 
+    Triggers:
+    - default
+  NodeCPIndex: 
+  ConnectionIndexIn: 01000000
+  ConnectionIndexOut: 00000000
+  NumberOfCP: 3
+  offset: {x: 0, y: 0}

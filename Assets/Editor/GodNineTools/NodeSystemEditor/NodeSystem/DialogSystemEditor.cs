@@ -17,12 +17,18 @@ public class DialogSystemEditor : EditorWindow
 
 	private Vector2 mOffset;
 	private Vector2 mDrag;
+	private ToolBar mToolbar;
 
 	[MenuItem("God Nine Tools/Dialog System Editor")]
 	private static void OpenWindow()
 	{
 		DialogSystemEditor window = GetWindow<DialogSystemEditor>();
 		window.titleContent = new GUIContent("Dialog System Editor");
+	}
+
+	private void OnEnable()
+	{
+		mToolbar = new ToolBar(this);
 	}
 
 	private void OnGUI()
@@ -32,10 +38,10 @@ public class DialogSystemEditor : EditorWindow
 		 DrawNodes();
 		 DrawConnections();
 		 DrawConnectionLine(Event.current);
-		 //DrawToolbar();
+		 DrawToolbar();
 
 		 //////////Process//////////
-		 //ProcessToolbar(Event.current);
+		 ProcessToolbar(Event.current);
 		 ProcessConnections(Event.current);
 		 ProcessNodes(Event.current);
 		 ProcessCanvas(Event.current);
@@ -192,12 +198,22 @@ public class DialogSystemEditor : EditorWindow
 			GUI.changed = true;
 		}
 	}
+
+	private void DrawToolbar()
+	{
+		mToolbar.Draw();
+	}
 	#endregion
 
 	//********************************************************************************
 	// Node Editor  Private Functions
 	//********************************************************************************
 	#region Node Editor  Private Functions
+	private void ProcessToolbar(Event iEvent)
+	{
+		mToolbar.ProcessEvents(iEvent);
+	}
+
 	private void AddNode(NodeBase iNode)
 	{
 		if (Nodes == null)
@@ -451,7 +467,7 @@ public class DialogSystemEditor : EditorWindow
 		//creates friendly version for loading at runtime
 		if (Nodes == null) Nodes = new List<NodeBase>();
 		if (Connections == null) Connections = new List<NodeConnection>();
-		List<BuildNode> buildNodes = new List<BuildNode>();
+		List<BuildNode> aBuildNodes = new List<BuildNode>();
 
 		//build node array
 		List<NodeBase> node_index_reference = new List<NodeBase>();
@@ -461,7 +477,7 @@ public class DialogSystemEditor : EditorWindow
 			{
 				node_index_reference.Add(Nodes[i]);
 				NodeData aNodeData = Nodes[i].GetInfo();
-				buildNodes.Add(new BuildNode(aNodeData.NodeName, aNodeData.Triggers));
+				aBuildNodes.Add(new BuildNode(aNodeData.NodeName, aNodeData.Triggers));
 			}
 		}
 
@@ -474,7 +490,7 @@ public class DialogSystemEditor : EditorWindow
 				{
 					int index_of_next = node_index_reference.IndexOf(Connections[j].InPoint.Node);
 					int index_of_trigger = ((ActionNode)node_index_reference[i]).OutPoints.IndexOf(Connections[j].OutPoint);
-					buildNodes[i].next_index[index_of_trigger] = index_of_next;
+					aBuildNodes[i].NextIndex[index_of_trigger] = index_of_next;
 				}
 			}
 		}
@@ -508,7 +524,7 @@ public class DialogSystemEditor : EditorWindow
 		}
 
 		BuildNodeObject build = CreateInstance<BuildNodeObject>();
-		build.Init(buildNodes, starting_index, starting_index);
+		build.Init(aBuildNodes, starting_index, starting_index);
 
 		//
 		AssetDatabase.CreateAsset(build, path);

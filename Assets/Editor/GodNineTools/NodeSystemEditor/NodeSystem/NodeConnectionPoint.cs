@@ -70,6 +70,8 @@ namespace NodeSystem
 
 		public void SetStyle()
 		{
+			style.normal.background = AssetDatabase.LoadAssetAtPath("Assets/Editor/DialogNodeEditor/Textures/grayTex.png", typeof(Texture2D)) as Texture2D;
+			style.active.background = AssetDatabase.LoadAssetAtPath("Assets/Editor/DialogNodeEditor/Textures/grayDarkTex.png", typeof(Texture2D)) as Texture2D;
 		}
 
 		public void Rebuild(NodeBase iNode, NodeConnectionPointType iType, Action<NodeConnectionPoint> OnClickConnectionPoint)
