@@ -11,7 +11,7 @@ namespace NodeSystem
 	public class ConnectionPoint
 	{
 		public Rect rect;
-		public NodeBase node;
+		public Node node;
 		public ConnectionPointType type;
 		public GUIStyle style = new GUIStyle();
 
@@ -19,7 +19,7 @@ namespace NodeSystem
 
 		public bool isClicked = false;
 
-		public ConnectionPoint(NodeBase node, ConnectionPointType type, Action<ConnectionPoint> OnClickConnectionPoint)
+		public ConnectionPoint(Node node, ConnectionPointType type, Action<ConnectionPoint> OnClickConnectionPoint)
 		{
 			this.node = node;
 			this.type = type;
@@ -74,7 +74,7 @@ namespace NodeSystem
 			style.active.background = AssetDatabase.LoadAssetAtPath("Assets/Editor/DialogNodeEditor/Textures/grayDarkTex.png", typeof(Texture2D)) as Texture2D;
 		}
 
-		public void Rebuild(NodeBase node, ConnectionPointType type, Action<ConnectionPoint> OnClickConnectionPoint)
+		public void Rebuild(Node node, ConnectionPointType type, Action<ConnectionPoint> OnClickConnectionPoint)
 		{
 			this.node = node;
 			this.type = type;
