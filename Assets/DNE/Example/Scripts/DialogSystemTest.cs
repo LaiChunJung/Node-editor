@@ -21,9 +21,9 @@ public class DialogSystemTest : MonoBehaviour
 
 	private void FirstDialog()
 	{
-		DialogData = Resources.Load("Builds/Build") as BuildObject;
+		//DialogData = Resources.Load("Builds/Build") as BuildObject;
 		DialogData = DialogData.Get();
-		DialogData.Init();
+		//DialogData.Init();
 		setText();
 		setAudio();
 		mIsFinished = false;
@@ -37,7 +37,7 @@ public class DialogSystemTest : MonoBehaviour
 			DialogData = DialogData.Get();
 			setText();
 			setAudio();
-			CharacterAnimator.Play(DialogData.GetCurrent().AnimatorState);
+			//CharacterAnimator.Play(DialogData.GetCurrent().AnimatorState);
 			mIsFinished = false;
 		}
 	}
@@ -47,7 +47,7 @@ public class DialogSystemTest : MonoBehaviour
 	{
 		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Q))&& DialogData != null && !mIsFinished)
 		{
-			CharacterAnimator.Play(DialogData.GetCurrent().AnimatorState);
+			//CharacterAnimator.Play(DialogData.GetCurrent().AnimatorState);
 			OnButtonClick(DialogData.GetCurrent().Triggers[0]);
 		}
 	}

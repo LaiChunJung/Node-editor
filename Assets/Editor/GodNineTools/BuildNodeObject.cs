@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DNE {
+namespace NodeSystem
+{
     [System.Serializable]
-    public class BuildObject : ScriptableObject {
+    public class BuildNodeObject : ScriptableObject {
         [SerializeField] private List<BuildNode> nodes = new List<BuildNode>();
         [SerializeField] private int start_index;
         [SerializeField] private int current_index;
@@ -16,8 +17,8 @@ namespace DNE {
             this.current_index = current_index;
         }
 
-        public BuildObject Get() {
-            return (BuildObject)MemberwiseClone();
+        public BuildNodeObject Get() {
+            return (BuildNodeObject)MemberwiseClone();
         }
 
         public BuildNode Next(string trigger) {
@@ -40,31 +41,24 @@ namespace DNE {
 
     [System.Serializable]
     public class BuildNode {
-        [SerializeField] private string title;
-        [SerializeField] private string text;
-        [SerializeField] private AudioClip clip;
-        [SerializeField] private List<string> triggers;
+        [SerializeField] private string mName;
+        [SerializeField] private List<string> mTriggers;
         public List<int> next_index; //TODO figure out what your own code does so we can make this private k?
 
-        public string Title { get { return title; } }
-        public string Text { get { return text; } }
-        public AudioClip Clip { get { return clip; } }
-        public List<string> Triggers { get { return triggers; } }
+        public List<string> Triggers { get { return mTriggers; } }
 
-        public int next_node(string trigger) {
-            if (!trigger.Contains(trigger)) {
+        public int next_node(string iTrigger) {
+            if (!iTrigger.Contains(iTrigger)) {
                 Debug.LogWarning("Trigger does not exist in this node!");
             }
-            return next_index[triggers.IndexOf(trigger)];
+            return next_index[mTriggers.IndexOf(iTrigger)];
         }
 
-        public BuildNode(string title, string text, AudioClip clip, List<string> triggers) {
-            this.title = title;
-            this.text = text;
-            this.clip = clip;
-            this.triggers = triggers;
+        public BuildNode(string iName, List<string> iTriggers) {
+            this.mName = iName;
+            this.mTriggers = iTriggers;
             next_index = new List<int>();
-            for (int i = 0; i < triggers.Count; i++) {
+            for (int i = 0; i < iTriggers.Count; i++) {
                 next_index.Add(-1);
             }
         }
