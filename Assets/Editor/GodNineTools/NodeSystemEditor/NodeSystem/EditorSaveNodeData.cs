@@ -15,7 +15,7 @@ namespace NodeSystem
 
         public void init(List<NodeData> iNodeDatas, List<int> iNodeCPIndex, List<int> ConnectionIndexIn, List<int> ConnectionIndexOut, int NumberOfCP, Vector2 offset) {
             this.NodeDatas = iNodeDatas;
-            this.NodeCPIndex = NodeCPIndex;
+            this.NodeCPIndex = iNodeCPIndex;
             this.ConnectionIndexIn = ConnectionIndexIn;
             this.ConnectionIndexOut = ConnectionIndexOut;
             this.NumberOfCP = NumberOfCP;

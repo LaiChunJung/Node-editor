@@ -467,7 +467,7 @@ public class DialogSystemEditor : EditorWindow
 		//creates friendly version for loading at runtime
 		if (Nodes == null) Nodes = new List<NodeBase>();
 		if (Connections == null) Connections = new List<NodeConnection>();
-		List<BuildNode> aBuildNodes = new List<BuildNode>();
+		List<CreatNode> aBuildNodes = new List<CreatNode>();
 
 		//build node array
 		List<NodeBase> node_index_reference = new List<NodeBase>();
@@ -477,7 +477,7 @@ public class DialogSystemEditor : EditorWindow
 			{
 				node_index_reference.Add(Nodes[i]);
 				NodeData aNodeData = Nodes[i].GetInfo();
-				aBuildNodes.Add(new BuildNode(aNodeData.NodeName, aNodeData.Triggers));
+				aBuildNodes.Add(new CreatNode(aNodeData.NodeName, aNodeData.Triggers ,aNodeData.TargetPosition));
 			}
 		}
 
@@ -523,7 +523,7 @@ public class DialogSystemEditor : EditorWindow
 			return;
 		}
 
-		BuildNodeObject build = CreateInstance<BuildNodeObject>();
+		CreatNodeObject build = CreateInstance<CreatNodeObject>();
 		build.Init(aBuildNodes, starting_index, starting_index);
 
 		//

@@ -112,13 +112,15 @@ namespace NodeSystem
 		public string NodeName;
 
 		public List<string> Triggers;
+		public List<Vector3> TargetPosition;
 
-		public NodeData(string iType, Rect iRrect, string iName = null, List<string> iTriggers = null)
+		public NodeData(string iType, Rect iRrect, string iName = null, List<string> iTriggers = null, List<Vector3> iTargetPosition = null)
 		{
 			this.Type = iType;
 			this.NodeRect = iRrect;
 			this.NodeName = iName;
 			this.Triggers = iTriggers;
+			this.TargetPosition = iTargetPosition;
 		}
 	}
 }

@@ -12,27 +12,20 @@ MonoBehaviour:
   m_Name: Canvas
   m_EditorClassIdentifier: 
   NodeDatas:
-  - Type: NodeSystem.InitNode
-    NodeRect:
-      serializedVersion: 2
-      x: 166
-      y: 124
-      width: 200
-      height: 100
-    NodeName: 
-    Triggers: []
   - Type: NodeSystem.ActionNode
     NodeRect:
       serializedVersion: 2
-      x: 416
-      y: 310
+      x: 272
+      y: 141
       width: 300
-      height: 221.6875
-    NodeName: 
+      height: 220.84375
+    NodeName: Init_node
     Triggers:
     - default
-  NodeCPIndex: 
-  ConnectionIndexIn: 01000000
-  ConnectionIndexOut: 00000000
-  NumberOfCP: 3
+    TargetPosition:
+    - {x: 0, y: 0, z: 0}
+  NodeCPIndex: 02000000
+  ConnectionIndexIn: 
+  ConnectionIndexOut: 
+  NumberOfCP: 2
   offset: {x: 0, y: 0}
