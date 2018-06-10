@@ -6,7 +6,7 @@ public class WalkPath : MonoBehaviour
 {
 
 	public List<Transform> PathNodes;
-	public List<Vector3> PathPositions;
+	private List<Vector3> PathPositions;
 	// Use this for initialization
 	void Start()
 	{
@@ -20,27 +20,18 @@ public class WalkPath : MonoBehaviour
 	{
 		if (PathNodes.Count > 0)
 		{
-			/*LineRenderer line = this.GetComponent<LineRenderer>();
-			if (line == null)
-			{
-				line = this.gameObject.AddComponent<LineRenderer>();
-				line.material = new Material(Shader.Find("Sprites/Default")) { color = Color.yellow };
-				line.SetWidth(0.5f, 0.5f);
-				line.SetColors(Color.yellow, Color.yellow);
-			}
-
-			line.SetVertexCount(PathPositions.Count);*/
 			Gizmos.color = Color.red;
-			
+			Vector3 aHeight = Vector3.up * 0.5f;
 			for (int i = 0; i < PathNodes.Count; i++)
 			{
-				if(i==0)
+				Gizmos.DrawSphere(PathNodes[i].position+aHeight, 0.25f);
+				if (i==0)
 				{
-					Gizmos.DrawLine(transform.position, PathNodes[i].position);
+					Gizmos.DrawLine(transform.position+ aHeight, PathNodes[i].position+ aHeight);
 				}
 				else
 				{
-					Gizmos.DrawLine(PathNodes[i-1].position, PathNodes[i].position);
+					Gizmos.DrawLine(PathNodes[i-1].position+ aHeight, PathNodes[i].position+ aHeight);
 				}
 			}				
 		}
